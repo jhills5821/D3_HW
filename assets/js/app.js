@@ -54,35 +54,30 @@ d3.csv("data/data.csv")
 
     // Create Circles
     var circlesGroup = chartGroup.selectAll("circle")
-    .data(Data)
-    .enter()
-    .append("circle")
-    .attr("cx", d => xLinearScale(d.age))
-    .attr("cy", d => yLinearScale(d.smokes))
-    .attr("r", "15")
-    .attr("fill", "blue")
-    .attr("opacity", ".3");
+        .data(Data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xLinearScale(d.age))
+        .attr("cy", d => yLinearScale(d.smokes))
+        .attr("r", "15")
+        .attr("class","stateCircle");
 
-    var text = chartGroup.selectAll("text")
-    .data(Data)
-    .enter()
-    .append("text");
-
-    var textLabels = text
-    .attr("x", d => xLinearScale(d.age))
-    .attr("y", d => yLinearScale(d.smokes)+4)
-    .text(d => d.abbr)
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "10px")
-    .attr("fill", "white")
-    .attr("text-anchor","middle");
+    // Add state labels to circles
+    chartGroup.selectAll("text")
+        .data(Data)
+        .enter()
+        .append("text")
+        .text(d => d.abbr)
+        .attr("x", d => xLinearScale(d.age))
+        .attr("y", d => yLinearScale(d.smokes)+6)
+        .attr("class", "stateText");
 
     // Initialize tool tip
     var toolTip = d3.tip()
-      .attr("class", "tooltip")
+      .attr("class", "d3-tip")
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.abbr}<br>Avg Age: ${d.age}<br>Smokes (%): ${d.smokes}`);
+        return (`${d.state}<br>Avg Age: ${d.age}<br>Smokes (%): ${d.smokes}`);
       });
 
     // Create tooltip in the chart
