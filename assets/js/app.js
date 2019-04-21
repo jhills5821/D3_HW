@@ -63,7 +63,7 @@ d3.csv("data/data.csv")
         .attr("class","stateCircle");
 
     // Add state labels to circles
-    chartGroup.selectAll("text")
+    chartGroup.selectAll(".stateText")
         .data(Data)
         .enter()
         .append("text")
